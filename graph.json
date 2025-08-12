@@ -1,0 +1,91 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "setData",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "process",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "helper",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "check",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "externalCallExample",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 1
+    },
+    {
+      "id": "transfer",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "start",
+      "target": "setData",
+      "internal": true
+    },
+    {
+      "source": "setData",
+      "target": "process",
+      "internal": true
+    },
+    {
+      "source": "process",
+      "target": "helper",
+      "internal": true
+    },
+    {
+      "source": "helper",
+      "target": "check",
+      "internal": true
+    },
+    {
+      "source": "check",
+      "target": "helper",
+      "internal": true
+    },
+    {
+      "source": "externalCallExample",
+      "target": "transfer",
+      "internal": false
+    }
+  ],
+  "cycles": [
+    [
+      "helper",
+      "check",
+      "helper"
+    ]
+  ],
+  "criticalPaths": [
+    [
+      "externalCallExample"
+    ]
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "smart-contract-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphviz": "^0.0.9",
+    "solidity-parser-antlr": "^0.4.11"
+  }
+}
