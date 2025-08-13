@@ -1,5 +1,7 @@
 // extract_graph.js
 // npm i solidity-parser-antlr
+//node extract_graph.js contract.sol
+
 const parser = require('solidity-parser-antlr');
 const fs = require('fs');
 const path = require('path');
