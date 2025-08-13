@@ -1,0 +1,367 @@
+{
+  "nodes": [
+    {
+      "id": "constructor",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "allowance",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "approve",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "balanceOf",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "transfer",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "transferFrom",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "delegate",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "delegateBySig",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "getCurrentVotes",
+      "visibility": "external",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "getPriorVotes",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "_delegate",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "_transferTokens",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "_moveDelegates",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "_writeCheckpoint",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "safe32",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "safe96",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "add96",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "sub96",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "getChainId",
+      "visibility": "internal",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "Transfer",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "Approval",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "keccak256",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "encode",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "encodePacked",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "ecrecover",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "require",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "DelegateChanged",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "Checkpoint",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "DelegateVotesChanged",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    }
+  ],
+  "links": [
+    {
+      "source": "constructor",
+      "target": "Transfer",
+      "internal": false
+    },
+    {
+      "source": "approve",
+      "target": "safe96",
+      "internal": true
+    },
+    {
+      "source": "approve",
+      "target": "Approval",
+      "internal": false
+    },
+    {
+      "source": "transfer",
+      "target": "safe96",
+      "internal": true
+    },
+    {
+      "source": "transfer",
+      "target": "_transferTokens",
+      "internal": true
+    },
+    {
+      "source": "transferFrom",
+      "target": "safe96",
+      "internal": true
+    },
+    {
+      "source": "transferFrom",
+      "target": "sub96",
+      "internal": true
+    },
+    {
+      "source": "transferFrom",
+      "target": "Approval",
+      "internal": false
+    },
+    {
+      "source": "transferFrom",
+      "target": "_transferTokens",
+      "internal": true
+    },
+    {
+      "source": "delegate",
+      "target": "_delegate",
+      "internal": true
+    },
+    {
+      "source": "delegateBySig",
+      "target": "keccak256",
+      "internal": false
+    },
+    {
+      "source": "delegateBySig",
+      "target": "encode",
+      "internal": false
+    },
+    {
+      "source": "delegateBySig",
+      "target": "getChainId",
+      "internal": true
+    },
+    {
+      "source": "delegateBySig",
+      "target": "encodePacked",
+      "internal": false
+    },
+    {
+      "source": "delegateBySig",
+      "target": "ecrecover",
+      "internal": false
+    },
+    {
+      "source": "delegateBySig",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "delegateBySig",
+      "target": "_delegate",
+      "internal": true
+    },
+    {
+      "source": "getPriorVotes",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "_delegate",
+      "target": "DelegateChanged",
+      "internal": false
+    },
+    {
+      "source": "_delegate",
+      "target": "_moveDelegates",
+      "internal": true
+    },
+    {
+      "source": "_transferTokens",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "_transferTokens",
+      "target": "sub96",
+      "internal": true
+    },
+    {
+      "source": "_transferTokens",
+      "target": "add96",
+      "internal": true
+    },
+    {
+      "source": "_transferTokens",
+      "target": "Transfer",
+      "internal": false
+    },
+    {
+      "source": "_transferTokens",
+      "target": "_moveDelegates",
+      "internal": true
+    },
+    {
+      "source": "_moveDelegates",
+      "target": "sub96",
+      "internal": true
+    },
+    {
+      "source": "_moveDelegates",
+      "target": "_writeCheckpoint",
+      "internal": true
+    },
+    {
+      "source": "_moveDelegates",
+      "target": "add96",
+      "internal": true
+    },
+    {
+      "source": "_writeCheckpoint",
+      "target": "safe32",
+      "internal": true
+    },
+    {
+      "source": "_writeCheckpoint",
+      "target": "Checkpoint",
+      "internal": false
+    },
+    {
+      "source": "_writeCheckpoint",
+      "target": "DelegateVotesChanged",
+      "internal": false
+    },
+    {
+      "source": "safe32",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "safe96",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "add96",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "sub96",
+      "target": "require",
+      "internal": false
+    }
+  ],
+  "cycles": [],
+  "criticalPaths": []
+}
