@@ -1,0 +1,30 @@
+{
+  "nodes": [
+    {
+      "id": "constructor",
+      "visibility": "default",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "destroy",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "selfdestruct",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "destroy",
+      "target": "selfdestruct",
+      "internal": false
+    }
+  ]
+}

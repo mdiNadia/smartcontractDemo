@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "deposit",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "withdraw",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 1
+    },
+    {
+      "id": "require",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "send",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "revert",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "withdraw",
+      "target": "require",
+      "internal": false
+    },
+    {
+      "source": "withdraw",
+      "target": "send",
+      "internal": false
+    },
+    {
+      "source": "withdraw",
+      "target": "revert",
+      "internal": false
+    }
+  ]
+}

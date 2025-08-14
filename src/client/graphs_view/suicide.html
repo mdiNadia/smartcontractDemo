@@ -9,16 +9,21 @@ body { background: #111; color: white; }
 .link { stroke: #888; stroke-width: 2px; }
 .node circle { stroke: #fff; stroke-width: 1.5px; }
 text { fill: white; font-size: 12px; }
+pre {
+    white-space: pre-wrap;   
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 </style>
 </head>
 <body>
 <h1 style="text-align:center">suicide.html</h1>
-<svg width="1000" height="1100"></svg>
+<svg width="900" height="600"></svg>
 <script>
 const svg = d3.select("svg");
 const width = +svg.attr("width");
 const height = +svg.attr("height");
-d3.json("..\..\graphs\suicide.json").then(data => {
+d3.json("suicide.json").then(data => {
   const simulation = d3.forceSimulation(data.nodes)
     .force("link", d3.forceLink(data.edges || data.links).id(d => d.id).distance(120))
     .force("charge", d3.forceManyBody().strength(-400))

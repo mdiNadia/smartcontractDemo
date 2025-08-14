@@ -2,7 +2,6 @@
 import os
 import subprocess
 from config import CONTRACTS_DIR, GRAPHS_DIR, GRAPH_STEPS_DIR, CLIENT_DIR
-import save_comparison_html
 from utilities.helpers import ensure_dirs
 from utilities.read_files import read_contract
 from utilities.prompts import build_prompt_no_cf, build_prompt_with_cf
@@ -17,7 +16,13 @@ EXTRACT_GRAPH_JS = os.path.join(os.path.dirname(__file__), "utilities", "extract
 GRAPH_TO_STEPS_JS = os.path.join(os.path.dirname(__file__), "utilities", "graph_to_steps.js")
 
 # --- تابع ذخیره HTML تعاملی گراف ---
+import shutil
+
 def save_graph_html(graph_file, html_file):
+    # کپی JSON کنار HTML
+    json_target = os.path.join(os.path.dirname(html_file), os.path.basename(graph_file))
+    shutil.copyfile(graph_file, json_target)
+
     html_template = f"""<!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +43,7 @@ text {{ fill: white; font-size: 12px; }}
 const svg = d3.select("svg");
 const width = +svg.attr("width");
 const height = +svg.attr("height");
-d3.json("{os.path.relpath(graph_file, os.path.dirname(html_file))}").then(data => {{
+d3.json("{os.path.basename(graph_file)}").then(data => {{
   const simulation = d3.forceSimulation(data.nodes)
     .force("link", d3.forceLink(data.edges || data.links).id(d => d.id).distance(120))
     .force("charge", d3.forceManyBody().strength(-400))
@@ -104,6 +109,115 @@ d3.json("{os.path.relpath(graph_file, os.path.dirname(html_file))}").then(data =
 </html>"""
     with open(html_file, "w", encoding="utf-8") as f:
         f.write(html_template)
+# در utilities/save_results.py این بخش رو اضافه کن
+def comparison_html(all_results, graphs_dir, output_file):
+    html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contracts Comparison</title>
+<style>
+body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+.slide {
+    display: none; /* پیش‌فرض مخفی */
+}
+h2 { color: #0af; }
+button {
+    background: #0af;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover { background: #09c; }
+.content-box {
+    background: #222;
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 8px;
+    width: 80%;
+    text-align: left;
+}
+iframe {
+    width: 90%;
+    height: 400px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+pre {
+    white-space: pre-wrap;   
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+</style>
+</head>
+<body>
+
+<h1>Smart Contract Summaries & Graphs</h1>
+"""
+
+    for idx, item in enumerate(all_results):
+        contract_name = item["contract"]
+        html += f"""
+<div class="slide">
+    <h2>{contract_name}</h2>
+    <div class="content-box">
+        <h3>Without Control-Flow</h3>
+        <pre>{item["no_cf"]}</pre>
+    </div>
+    <div class="content-box">
+        <h3>With Control-Flow</h3>
+        <pre>{item["with_cf"]}</pre>
+    </div>
+    <div class="content-box">
+        <h3>Interactive Graph</h3>
+        <iframe src="graphs_view/{contract_name.replace('.sol', '.html')}"></iframe>
+    </div>
+</div>
+"""
+
+    html += """
+<div>
+    <button onclick="plusSlides(-1)">Previous</button>
+    <button onclick="plusSlides(1)">Next</button>
+</div>
+
+<script>
+let slideIndex = 1;
+
+window.onload = function() {
+    showSlides(slideIndex);
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function showSlides(n) {
+  let slides = document.getElementsByClassName("slide");
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+  for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+}
+</script>
+
+</body>
+</html>
+"""
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write(html)
 
 # --- پردازش یک قرارداد ---
 def process_contract(contract_path, graph_path, steps_path):
@@ -156,7 +270,7 @@ for f in sol_files:
 save_to_text(all_results)
 save_to_html(all_results)
 comparison_file = os.path.join(CLIENT_DIR, "comparison.html")
-save_comparison_html(all_results, "graphs_view", comparison_file)
+comparison_html(all_results, "graphs_view", comparison_file)
 print("All comparison results saved successfully.")
 
 # --- ساخت داشبورد مرکزی ---
@@ -176,6 +290,11 @@ h1 { text-align: center; }
 .card { background: #222; border-radius: 8px; padding: 10px; width: 300px; text-align: center; }
 .card a { color: #0af; text-decoration: none; font-weight: bold; }
 iframe { width: 100%; height: 300px; border: none; border-radius: 5px; }
+pre {
+    white-space: pre-wrap;     
+    word-wrap: break-word;  
+    overflow-wrap: break-word; 
+}
 </style>
 </head>
 <body>
