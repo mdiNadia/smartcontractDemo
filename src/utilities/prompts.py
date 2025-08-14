@@ -1,20 +1,31 @@
-import json
-
-def create_prompt_no_cf(solidity_code: str) -> str:
-    return f"""You are a blockchain security auditor.
+PROMPT_NO_CF_TMPL = """You are a blockchain security auditor.
 Summarize the following Solidity smart contract:
-{solidity_code}
+---
+{code}
+---
+Provide:
+- Main purpose
+- Key functions
+- Potential security considerations
 """
 
-def create_prompt_with_cf(solidity_code: str, control_flow_graph: dict) -> str:
-    return f"""You are a blockchain security auditor.
-Summarize the following Solidity smart contract.
-Here is the control-flow graph in JSON format:
-{json.dumps(control_flow_graph, indent=2)}
-Then, provide a concise summary including:
-- Main purpose of the contract
-- Key functions and their relationships
-- Potential security considerations
+PROMPT_WITH_CF_TMPL = """You are a blockchain security auditor.
+Use the following control-flow steps to guide your analysis, then summarize the Solidity contract.
+Control Flow Steps:
+{steps}
+
 Contract code:
-{solidity_code}
+---
+{code}
+---
+Provide:
+- Main purpose
+- Key functions and their relationships
+- Potential security considerations (be specific)
 """
+
+def build_prompt_no_cf(code):
+    return PROMPT_NO_CF_TMPL.format(code=code)
+
+def build_prompt_with_cf(code, steps):
+    return PROMPT_WITH_CF_TMPL.format(code=code, steps="\n".join(steps))

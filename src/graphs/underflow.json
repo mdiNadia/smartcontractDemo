@@ -1,0 +1,30 @@
+{
+  "nodes": [
+    {
+      "id": "constructor",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "transfer",
+      "visibility": "public",
+      "stateChange": false,
+      "extCalls": 0
+    },
+    {
+      "id": "require",
+      "external": true,
+      "visibility": null,
+      "stateChange": false,
+      "extCalls": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "transfer",
+      "target": "require",
+      "internal": false
+    }
+  ]
+}

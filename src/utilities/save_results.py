@@ -1,38 +1,42 @@
 from config import OUTPUT_TEXT, OUTPUT_HTML
 
-def save_as_text(summary_no_cf: str, summary_with_cf: str):
-    with open(OUTPUT_TEXT, "w", encoding="utf-8") as f:
-        f.write("=== Summary WITHOUT Control-Flow ===\n\n")
-        f.write(summary_no_cf + "\n\n")
-        f.write("=== Summary WITH Control-Flow ===\n\n")
-        f.write(summary_with_cf + "\n")
+def save_to_text(all_results, path=OUTPUT_TEXT):
+    with open(path, "w", encoding="utf-8") as f:
+        for r in all_results:
+            f.write(f"=== {r['contract']} ===\n\n")
+            f.write("Without Control-Flow:\n")
+            f.write(r['no_cf'] + "\n\n")
+            f.write("With Control-Flow:\n")
+            f.write(r['with_cf'] + "\n\n")
 
-def save_as_html(summary_no_cf: str, summary_with_cf: str):
-    html_content = f"""
-    <html>
-    <head>
+def save_to_html(all_results, path=OUTPUT_HTML):
+    html_content = """
+    <html><head>
     <style>
-    body {{ font-family: Arial, sans-serif; }}
-    .container {{ display: flex; gap: 20px; }}
-    .column {{ width: 50%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }}
-    h2 {{ text-align: center; }}
-    pre {{ white-space: pre-wrap; }}
+    body { font-family: Arial, sans-serif; }
+    .container { display: flex; gap: 20px; margin-bottom: 30px; }
+    .column { width: 50%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    h2 { text-align: center; }
+    pre { white-space: pre-wrap; }
     </style>
-    </head>
-    <body>
+    </head><body>
     <h1>Smart Contract Summarization Comparison</h1>
-    <div class="container">
-        <div class="column">
-            <h2>Without Control-Flow</h2>
-            <pre>{summary_no_cf}</pre>
-        </div>
-        <div class="column">
-            <h2>With Control-Flow</h2>
-            <pre>{summary_with_cf}</pre>
-        </div>
-    </div>
-    </body>
-    </html>
     """
-    with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
+    for r in all_results:
+        html_content += f"""
+        <h2>{r['contract']}</h2>
+        <div class="container">
+            <div class="column">
+                <h3>Without Control-Flow</h3>
+                <pre>{r['no_cf']}</pre>
+            </div>
+            <div class="column">
+                <h3>With Control-Flow</h3>
+                <pre>{r['with_cf']}</pre>
+            </div>
+        </div>
+        """
+    html_content += "</body></html>"
+
+    with open(path, "w", encoding="utf-8") as f:
         f.write(html_content)
